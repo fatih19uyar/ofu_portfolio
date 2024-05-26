@@ -6,21 +6,21 @@ import React from "react";
 
 interface CustomButtonProps {
   isLoading?: boolean;
-  type: ButtonTypes;
+  typeStyle: ButtonTypes;
   icon?: React.ReactNode;
   text?: string;
-  children?: React.ReactNode;  // Çocuk bileşenler için yeni prop
+  children?: React.ReactNode; 
 }
-
 export function CustomButton({
   isLoading,
-  type,
+  typeStyle,
   icon,
   text,
-  children
-}: CustomButtonProps) {
+  children,
+  ...props
+}: CustomButtonProps & Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, keyof CustomButtonProps>) {
   const renderContent = () => {
-    switch (type) {
+    switch (typeStyle) {
       case ButtonTypes.Icon:
         return icon;
       case ButtonTypes.Loading:
@@ -33,7 +33,7 @@ export function CustomButton({
   };
 
   return (
-    <Button disabled={isLoading || type === ButtonTypes.Loading} asChild={type === ButtonTypes.AsChild}>
+    <Button disabled={isLoading || typeStyle === ButtonTypes.Loading} asChild={typeStyle === ButtonTypes.AsChild} {...props}>
       {renderContent()}
     </Button>
   );
