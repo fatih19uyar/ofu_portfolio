@@ -1,7 +1,7 @@
 import { DNA } from 'react-loader-spinner';
 
 type LoadingText = {
-  text: string;
+  text?: string;
 }
 
 const LoadingScreen: React.FC<LoadingText> = ({ text }) => {
