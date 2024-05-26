@@ -1,3 +1,5 @@
+import { Control, ControllerRenderProps, FieldErrors } from "react-hook-form";
+
 export enum InputTypes {
   Email = "email",
   Password = "password",
@@ -6,9 +8,10 @@ export enum InputTypes {
 }
 
 export interface CustomInputProps {
-  value: string;
-  onChange: (value: string) => void;
+  name: string;
   type: InputTypes;
   placeholder?: string;
-  customIcon?: React.ReactNode; 
+  customIcon?: React.ReactNode;
+  className?: string;
+  form: any
 }

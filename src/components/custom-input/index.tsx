@@ -1,6 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
 import { Input } from "../ui/input";
-import { atom, useAtom } from "jotai";
 import {
   EyeIcon,
   EyeOffIcon,
@@ -9,22 +8,18 @@ import {
   KeyRound,
 } from "lucide-react";
 import { CustomInputProps, InputTypes } from "./type";
-
-const showPasswordAtom = atom(false);
+import { FormControl, FormField, FormItem, FormMessage } from "../ui/form";
 
 const CustomInput: React.FC<CustomInputProps> = ({
-  value,
-  onChange,
+  name,
   type,
   placeholder,
   customIcon,
+  className,
+  form,
 }) => {
-  const [showPassword, setShowPassword] = useAtom(showPasswordAtom);
   const isPasswordType = type === InputTypes.Password;
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    onChange(e.target.value);
-  };
+  const [showPassword, setShowPassword] = useState(false); // State for password visibility
 
   const renderLeftIcon = () => {
     switch (type) {
@@ -54,12 +49,24 @@ const CustomInput: React.FC<CustomInputProps> = ({
   return (
     <div className="relative">
       {renderLeftIcon()}
-      <Input
-        type={isPasswordType && !showPassword ? "password" : "text"}
-        placeholder={placeholder}
-        value={value}
-        onChange={handleChange}
-        className={`pl-10 ${isPasswordType ? "pr-10" : ""}`}
+      <FormField
+        control={form.control}
+        name={name}
+        render={({ field }) => (
+          <FormItem>
+            <FormControl>
+              <Input
+                type={isPasswordType && !showPassword ? "password" : "text"}
+                placeholder={placeholder}
+                {...field}
+                className={`pl-10 ${className} ${
+                  isPasswordType ? "pr-10" : ""
+                } `}
+              />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
       />
       {isPasswordType && (
         <button
