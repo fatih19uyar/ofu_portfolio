@@ -17,6 +17,7 @@ const CustomInput: React.FC<CustomInputProps> = ({
   customIcon,
   className,
   form,
+  ...props
 }) => {
   const isPasswordType = type === InputTypes.Password;
   const [showPassword, setShowPassword] = useState(false); // State for password visibility
@@ -62,6 +63,7 @@ const CustomInput: React.FC<CustomInputProps> = ({
                 className={`pl-10 ${className} ${
                   isPasswordType ? "pr-10" : ""
                 } `}
+                {...props}
               />
             </FormControl>
             <FormMessage />
